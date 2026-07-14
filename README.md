@@ -2,7 +2,7 @@
 
 A small Windows utility for finding out what is locking a file or folder.
 
-This is for the familiar Windows problem where you try to delete, rename, or move something and get the classic “this file is being used by another process” message, but Windows does not tell you which process is responsible.
+This is for the familiar Windows problem where you try to delete, rename, or move something and get the classic "this file is being used by another process" message, but Windows does not tell you which process is responsible.
 
 ## What it does
 
@@ -17,7 +17,7 @@ It is intentionally small, native, and fairly old-school:
 * UI is built directly in code using normal Win32 controls.
 * Native and lower-level Windows API calls are isolated in the `WindowsApi/` folder so that the UI and core logic stay reasonably clean.
 
-This started as a practical utility for the kind of thing I often want on a Windows machine: a quick way to answer “what is holding this file open?” without installing a large tool.
+This started as a practical utility for the kind of thing I often want on a Windows machine: a quick way to answer "what is holding this file open?" without installing a large tool.
 
 ## Project layout
 
@@ -254,7 +254,7 @@ The app also tries to provide useful advice when the result is not clear-cut. Fo
 
 This tool is deliberately conservative.
 
-It does not try to be a “force unlocker”.
+It does not try to be a "force unlocker".
 
 * It never kills processes.
 * It never force-closes handles in another process.
@@ -294,7 +294,7 @@ Known limitations:
 * Some protected or system processes cannot be inspected without elevation.
 * A file may be locked because it is memory-mapped or loaded as a DLL, not because there is a normal open file handle.
 * Network share locks may not be visible from the local machine.
-* Permissions, read-only attributes, very long paths, and file-system corruption can look similar to a lock from the user’s point of view.
+* Permissions, read-only attributes, very long paths, and file-system corruption can look similar to a lock from the user's point of view.
 * The Advanced Handle Scan relies on undocumented Windows internals, so it is best-effort by design.
 * Restart Manager remains the primary and preferred detection method.
 
@@ -313,3 +313,7 @@ The code is split so that:
 That makes it easier to reason about the risky parts of the program, especially anything involving native handles, undocumented APIs, registry writes, or reboot scheduling.
 
 The end result is not meant to replace tools like Process Explorer. It is more of a focused utility for one common annoyance: finding out what is stopping you from deleting, renaming, or moving a file.
+
+## License
+
+MIT License. See [LICENSE](LICENSE) for details.
