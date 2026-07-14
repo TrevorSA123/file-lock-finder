@@ -193,8 +193,6 @@ There is one awkward Windows detail here: probing some handle types can block in
 
 If a probe does not return in time, that handle is abandoned. The thread is not forcibly killed, because terminating a thread in the middle of a system call can corrupt process state.
 
-This is a rare and bounded tradeoff, but it is still a tradeoff. The code comments call this out clearly.
-
 Because this method depends on internal Windows behaviour, it is treated as best-effort throughout the app.
 
 ## Results
