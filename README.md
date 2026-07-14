@@ -4,6 +4,8 @@ A small Windows utility for finding out what is locking a file or folder.
 
 This is for the familiar Windows problem where you try to delete, rename, or move something and get the classic "this file is being used by another process" message, but Windows does not tell you which process is responsible.
 
+![file-lock-finder](file-lock-finder.png)
+
 ## What it does
 
 File Lock Finder lets you pick a file or folder and tries to show which running processes are using it.
@@ -18,44 +20,6 @@ It is intentionally small, native, and fairly old-school:
 * Native and lower-level Windows API calls are isolated in the `WindowsApi/` folder so that the UI and core logic stay reasonably clean.
 
 This started as a practical utility for the kind of thing I often want on a Windows machine: a quick way to answer "what is holding this file open?" without installing a large tool.
-
-## Project layout
-
-```text
-FileLockFinder/
-  CMakeLists.txt
-  FileLockFinder.manifest        # asInvoker execution level, DPI awareness, common-controls v6
-
-  src/                           # Win32 UI layer
-    main.cpp                     # wWinMain, command-line parsing, message loop
-    MainWindow.h/.cpp            # main application window
-    QuickScanDialog.h/.cpp       # compact "just show me the processes" popup
-    PreferencesDialog.h/.cpp     # Options > Preferences...
-    AboutDialog.h/.cpp           # Help > About
-    Dialogs.h/.cpp               # IFileOpenDialog wrappers
-    ResultsListView.h/.cpp       # shared results grid setup/population
-    ResultsFormatting.h/.cpp     # copy-results-to-clipboard formatting
-    UiHelpers.h/.cpp             # small CreateWindowEx/control helpers
-    Resource.h                   # control/menu command IDs
-
-  Core/                          # business logic, no Win32 UI code
-    FileLockAnalyzer.h/.cpp      # coordinates a scan; main entry point used by the UI
-    LockResult.h
-    LockingProcessInfo.h
-    LockStatus.h
-    PathNormalizer.h/.cpp
-    AppSettings.h
-    SettingsService.h/.cpp       # JSON settings load/save
-
-  WindowsApi/                    # Win32/native API boundary
-    NativeFileApi.h/.cpp         # CreateFile-based non-destructive lock probe
-    ProcessApi.h/.cpp            # least-privilege process name/path lookup
-    RestartManager.h/.cpp        # primary detection method using Rstrtmgr.h
-    AdvancedHandleScanner.h/.cpp # optional fallback using raw handle enumeration
-    MoveFileExApi.h/.cpp         # schedule delete/rename on reboot
-    ContextMenuIntegrationService.h/.cpp  # per-user Explorer context-menu registration
-    Win32Handle.h                # small RAII HANDLE wrapper
-```
 
 ## Building
 
